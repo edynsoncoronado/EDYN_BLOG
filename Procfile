@@ -1,0 +1,1 @@
+web: gunicorn EDYN_BLOG.wsgi --log-file -
