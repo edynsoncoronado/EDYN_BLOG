@@ -1,8 +1,8 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from blogs.models import Category, Blog
-from blogs.serializers import CategorySerializer, BlogSerializer
+from blogs.models import Category, Blog, Cover
+from blogs.serializers import CategorySerializer, BlogSerializer, CoverSerializer
 
 @api_view(['GET', 'POST'])
 def category_list(request, format=None):
@@ -27,10 +27,18 @@ def blog_list(request):
         return Response(serializers.data)
     
     elif request.method == 'POST':
-        serializers = BlogSerializer(data=request.data)
+        serializers = BlogSerializer(data={
+            'name': request.data['name'],
+            'content': request.data['content'],
+            'cover': {
+                'name': request.data['cover_name'],
+                'description': request.data['cover_description']
+            }
+        })
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
+
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

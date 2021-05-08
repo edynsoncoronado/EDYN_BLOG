@@ -13,8 +13,9 @@ class Blog(models.Model):
 	cover = models.ForeignKey(
 		'Cover',
 		models.SET_NULL,
+		# on_delete=models.CASCADE,
 		blank=True,
-		null=True
+		null=True,
 	)
 
 

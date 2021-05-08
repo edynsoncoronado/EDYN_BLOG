@@ -55,10 +55,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+"""
+CORS_ALLOWED_ORIGINS = [
+    "https://edynsoncoronado.com",
+    "http://localhost:4200",
+]
+"""
+
 
 ROOT_URLCONF = 'edyn_blog.urls'
 
