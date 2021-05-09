@@ -33,6 +33,9 @@ def blog_list(request):
             'cover': {
                 'name': request.data['cover_name'],
                 'description': request.data['cover_description']
+            },
+            'category': {
+                'name': request.data['category_name']
             }
         })
         if serializers.is_valid():
@@ -40,6 +43,19 @@ def blog_list(request):
             return Response(serializers.data, status=status.HTTP_201_CREATED)
 
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def category_detail(request, pk):
+    print("GETTTTT", pk)
+    try:
+        category = Category.objects.get(pk=pk)
+    except Category.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializers = CategorySerializer(category)
+        return Response(serializers.data)
 
 
 # @api_view(['GET', 'PUT', 'DELETE'])

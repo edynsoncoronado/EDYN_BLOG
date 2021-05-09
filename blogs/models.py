@@ -10,6 +10,13 @@ class Blog(models.Model):
 	active = models.BooleanField(default=False)
 	content = models.TextField()
 	created = models.DateTimeField(auto_now_add=True)
+	category = models.ForeignKey(
+		'Category',
+		related_name='blogs',
+		on_delete=models.SET_NULL,
+		blank=True,
+		null=True,
+	)
 	cover = models.ForeignKey(
 		'Cover',
 		models.SET_NULL,
