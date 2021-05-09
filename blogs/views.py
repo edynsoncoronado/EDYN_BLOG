@@ -27,6 +27,13 @@ def blog_list(request):
         return Response(serializers.data)
     
     elif request.method == 'POST':
+        category_data = request.data['category_name']
+        category = Category.objects.filter(name__contains=category_data)
+        if not category:
+            category = Category.objects.create(**category_data)
+        else:
+            category = category[0]
+        
         serializers = BlogSerializer(data={
             'name': request.data['name'],
             'content': request.data['content'],
@@ -34,9 +41,7 @@ def blog_list(request):
                 'name': request.data['cover_name'],
                 'description': request.data['cover_description']
             },
-            'category': {
-                'name': request.data['category_name']
-            }
+            'category': category.id
         })
         if serializers.is_valid():
             serializers.save()
@@ -47,7 +52,6 @@ def blog_list(request):
 
 @api_view(['GET'])
 def category_detail(request, pk):
-    print("GETTTTT", pk)
     try:
         category = Category.objects.get(pk=pk)
     except Category.DoesNotExist:

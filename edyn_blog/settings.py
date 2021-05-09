@@ -64,7 +64,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
 ]
 
-
 ROOT_URLCONF = 'edyn_blog.urls'
 
 TEMPLATES = [
