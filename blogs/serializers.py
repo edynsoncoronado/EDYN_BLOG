@@ -12,6 +12,7 @@ class BlogSerializer(serializers.ModelSerializer):
     # cover_name = serializers.SlugRelatedField(read_only=True, slug_field='name')
     # cover_description = serializers.ReadOnlyField(source='cover.description')
     cover = CoverSerializer()
+    created = serializers.DateTimeField(format="%d-%m-%Y")
 
     class Meta:
         model = Blog
